@@ -1,5 +1,12 @@
 
-BUI.use(['bui/layout/absolute'],function(Absolute) {
+	
+	var Absolute = require('../src/absolute'),
+		expect = require('expect.js'),
+  	sinon = require('sinon'),
+  	$ = require('jquery');
+
+  require('bui-dpl/css/bs3/dpl.css');
+  require('http://g.tbcdn.cn/fi/bui/css/layout-min.css');
 
 	var layout = new Absolute(),
 		control = new BUI.Component.Controller({
@@ -56,19 +63,19 @@ BUI.use(['bui/layout/absolute'],function(Absolute) {
 
 	describe('测试初始化',function(){
 		it('测试样式',function(){
-			expect(el.hasClass('x-layout-relative')).toBe(true);
+			expect(el.hasClass('x-layout-relative')).to.be(true);
 		});
 		it('测试生成布局项',function(){
-			expect(el.children().length).toBe(control.get('children').length);
+			expect(el.children().length).to.be(control.get('children').length);
 		});
 		it('测试布局项的属性',function(){
 			var children = el.children();
-			expect($(children[0]).css('top')).toBe('0px');
-			expect($(children[3]).css('bottom')).toBe('0px');
+			expect($(children[0]).css('top')).to.be('0px');
+			expect($(children[3]).css('bottom')).to.be('0px');
 		});
 		it('测试计算的值',function(){
 			var children = el.children();
-			expect($(children[1]).height()).toBe(400);
+			expect($(children[1]).height()).to.be(400);
 		});
 	});
 
@@ -76,7 +83,7 @@ BUI.use(['bui/layout/absolute'],function(Absolute) {
 		var children = el.children();
 		it('重置高度',function(){
 			control.set('height',600);
-			expect($(children[1]).height()).toBe(500);
+			expect($(children[1]).height()).to.be(500);
 		});
 
 		it('添加',function(){
@@ -94,8 +101,8 @@ BUI.use(['bui/layout/absolute'],function(Absolute) {
 				content : '附加内容'
 			});
 
-			expect(layout.getItems().length).toBe(count + 1);
-			expect(el.find('.x-layout-item-absolute').length).toBe(count + 1);
+			expect(layout.getItems().length).to.be(count + 1);
+			expect(el.find('.x-layout-item-absolute').length).to.be(count + 1);
 
 		});
 		it('修改',function(){
@@ -106,10 +113,10 @@ BUI.use(['bui/layout/absolute'],function(Absolute) {
 			childLayout.right = 150;
 			childLayout.top = 20;
 			//child.set('layout',layout);
-			expect(item).not.toBe(undefined);
+			expect(item).not.to.be(undefined);
 			item.set(childLayout);
 			item.syncItem();
-			expect(item.get('el').css('right')).toBe('150px');
+			expect(item.get('el').css('right')).to.be('150px');
 
 		});
 		it('删除',function(){
@@ -118,12 +125,11 @@ BUI.use(['bui/layout/absolute'],function(Absolute) {
 
 			child.remove();
 
-			expect(layout.getItems().length).toBe(count - 1);
-			expect(el.find('.x-layout-item-absolute').length).toBe(count - 1);
+			expect(layout.getItems().length).to.be(count - 1);
+			expect(el.find('.x-layout-item-absolute').length).to.be(count - 1);
 		});
 
 	});
 
 
 
-});

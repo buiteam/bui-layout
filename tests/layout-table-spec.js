@@ -1,5 +1,8 @@
 
-BUI.use(['bui/layout/table'],function(Table) {
+	var expect = require('expect.js'),
+  	sinon = require('sinon'),
+  	$ = require('jquery'),
+  	Table = require('../src/table');
 
 	var layout = new Table({
 		rows : 4,
@@ -84,7 +87,7 @@ BUI.use(['bui/layout/table'],function(Table) {
 	describe('测试初始化',function(){
 		var children = el.find('td');
 		it('测试生成布局项',function(){
-			expect(children.length).toBe(control.get('children').length);
+			expect(children.length).to.be(control.get('children').length);
 		});
 	});
 
@@ -93,19 +96,18 @@ BUI.use(['bui/layout/table'],function(Table) {
 			var count = layout.getItems().length,
 				child = control.getChild('8');
 			child.remove();
-			expect(layout.getItems().length).toBe(count -1);
+			expect(layout.getItems().length).to.be(count -1);
 		});
 
 		/**/it('更改',function(){
 			var child = control.getChild('7'),
 				item = layout.getItem(child);
 
-			expect(item).not.toBe(undefined);
+			expect(item).not.to.be(undefined);
 			item.set('colspan',3);
 			item.syncItem();
-			expect(item.get('el').attr('colspan')).toBe('3');
+			expect(item.get('el').attr('colspan')).to.be('3');
 		});
 
 	});
 
-});
