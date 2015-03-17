@@ -1,12 +1,12 @@
 
-	
-	var Absolute = require('../src/absolute'),
-		expect = require('expect.js'),
-  	sinon = require('sinon'),
-  	$ = require('jquery');
+var Absolute = require('../src/absolute'),
+  expect = require('expect.js'),
+  sinon = require('sinon'),
+  $ = require('jquery');
 
-  require('bui-dpl/css/bs3/dpl.css');
-  require('http://g.tbcdn.cn/fi/bui/css/layout-min.css');
+$('<div class="layout-test"></div>').appendTo('body');
+
+require("http://g.tbcdn.cn/fi/bui/css/layout-min.css");
 
 	var layout = new Absolute(),
 		control = new BUI.Component.Controller({

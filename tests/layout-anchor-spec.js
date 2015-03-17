@@ -1,5 +1,12 @@
 
-BUI.use(['bui/layout/anchor'],function(Anchor) {
+var Anchor = require('../src/anchor'),
+	expect = require('expect.js'),
+	sinon = require('sinon'),
+	$ = require('jquery');
+
+require("http://g.tbcdn.cn/fi/bui/css/layout-min.css");
+
+$('<div id="J_Layout"></div>').appendTo('body');
 
 	var layout = new Anchor(),
 		control = new BUI.Component.Controller({
@@ -41,19 +48,19 @@ BUI.use(['bui/layout/anchor'],function(Anchor) {
 	describe('测试初始化',function(){
 		var children = el.children();
 		it('测试生成布局项',function(){
-			expect(el.children().length).toBe(control.get('children').length);
+			expect(el.children().length).to.be(control.get('children').length);
 		});
 		it('测试布局项的属性',function(){
 			
-			expect($(children[0]).css('width')).toBe('800px');
-			expect($(children[0]).css('height')).toBe('50px');
+			expect($(children[0]).css('width')).to.be('800px');
+			expect($(children[0]).css('height')).to.be('50px');
 			
 		});
 		it('测试计算的值',function(){
 			
-			expect($(children[1]).width()).toBe(700);
+			expect($(children[1]).width()).to.be(700);
 
-			expect($(children[3]).height()).toBe(200);
+			expect($(children[3]).height()).to.be(200);
 		});
 	});
 
@@ -61,7 +68,7 @@ BUI.use(['bui/layout/anchor'],function(Anchor) {
 		var children = el.children();
 		it('重置高度',function(){
 			control.set('height',600);
-			expect($(children[3]).height()).toBe(300);
+			expect($(children[3]).height()).to.be(300);
 		});
 
 		it('添加',function(){
@@ -75,8 +82,8 @@ BUI.use(['bui/layout/anchor'],function(Anchor) {
 				content : '附加内容'
 			});
 
-			expect(layout.getItems().length).toBe(count + 1);
-			expect(el.find('.x-layout-item').length).toBe(count + 1);
+			expect(layout.getItems().length).to.be(count + 1);
+			expect(el.find('.x-layout-item').length).to.be(count + 1);
 
 		});
 		it('修改',function(){
@@ -84,11 +91,11 @@ BUI.use(['bui/layout/anchor'],function(Anchor) {
 				
 				item = layout.getItem(child);
 			//child.set('layout',layout);
-			expect(item).not.toBe(undefined);
+			expect(item).not.to.be(undefined);
 			item.set('anchor',[100,-300]);
 			item.syncItem();
-			expect(item.get('el').css('width')).toBe('100px');
-			expect(item.get('el').css('height')).toBe('300px');
+			expect(item.get('el').css('width')).to.be('100px');
+			expect(item.get('el').css('height')).to.be('300px');
 
 		});
 		it('删除',function(){
@@ -97,10 +104,9 @@ BUI.use(['bui/layout/anchor'],function(Anchor) {
 
 			child.remove();
 
-			expect(layout.getItems().length).toBe(count - 1);
-			expect(el.find('.x-layout-item').length).toBe(count - 1);
+			expect(layout.getItems().length).to.be(count - 1);
+			expect(el.find('.x-layout-item').length).to.be(count - 1);
 		});
 
 	});
 
-});

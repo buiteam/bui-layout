@@ -1,5 +1,12 @@
 
-BUI.use(['bui/layout/columns'],function(Columns) {
+var Columns = require('../src/columns'),
+  expect = require('expect.js'),
+  sinon = require('sinon'),
+  $ = require('jquery');
+
+require("http://g.tbcdn.cn/fi/bui/css/layout-min.css");
+
+$('<div id="J_Layout"></div>').appendTo('body');
 
 	var layout = new Columns({
 		columns : 4
@@ -57,8 +64,8 @@ BUI.use(['bui/layout/columns'],function(Columns) {
 	describe('测试初始化',function(){
 		var children = el.find('.x-layout-column');
 		it('测试生成布局项',function(){
-			expect(children.length).toBe(4);
-			expect(el.find('.x-layout-item-column').length).toBe(control.get('children').length);
+			expect(children.length).to.be(4);
+			expect(el.find('.x-layout-item-column').length).to.be(control.get('children').length);
 		});
 	});
 
@@ -67,22 +74,21 @@ BUI.use(['bui/layout/columns'],function(Columns) {
 			var count = layout.getItems().length,
 				child = control.getChild('8');
 			child.remove();
-			expect(layout.getItems().length).toBe(count -1);
+			expect(layout.getItems().length).to.be(count -1);
 		});
 		it('移动',function(){
 			var child = control.getChild('2'),
 				preContainer,
 				item = layout.getItem(child);
 			layout.moveItem(item,3); //移动到第4列
-			expect(item.get('container')).not.toBe(preContainer);
-			expect(item.get('el').parent()[0]).toBe(item.get('container')[0]);
+			expect(item.get('container')).not.to.be(preContainer);
+			expect(item.get('el').parent()[0]).to.be(item.get('container')[0]);
 		});
 		it('改变容器宽度',function(){
 			var item = layout.getItems()[0],
 				preWidth = item.get('el').width();
 			control.set('width',600);
-			expect(preWidth).not.toBe(item.get('el').width());
+			expect(preWidth).not.to.be(item.get('el').width());
 		});
 	});
 
-});

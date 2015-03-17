@@ -1,8 +1,12 @@
 
-	var expect = require('expect.js'),
-  	sinon = require('sinon'),
-  	$ = require('jquery'),
-  	Table = require('../src/table');
+var Table = require('../src/table'),
+  expect = require('expect.js'),
+  sinon = require('sinon'),
+  $ = require('jquery');
+
+require("http://g.tbcdn.cn/fi/bui/css/layout-min.css");
+
+$('<div id="J_Layout"></div>').appendTo('body');
 
 	var layout = new Table({
 		rows : 4,

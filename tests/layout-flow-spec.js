@@ -1,5 +1,12 @@
 
-BUI.use(['bui/layout/flow'],function(Flow) {
+var Flow = require('../src/flow'),
+  expect = require('expect.js'),
+  sinon = require('sinon'),
+  $ = require('jquery');
+
+require("http://g.tbcdn.cn/fi/bui/css/layout-min.css");
+
+$('<div id="J_Layout"></div>').appendTo('body');
 
 	var layout = new Flow(),
 		control = new BUI.Component.Controller({
@@ -45,7 +52,7 @@ BUI.use(['bui/layout/flow'],function(Flow) {
 	describe('测试初始化',function(){
 		var children = el.children();
 		it('测试生成布局项',function(){
-			expect(el.children().length).toBe(control.get('children').length);
+			expect(el.children().length).to.be(control.get('children').length);
 		});
 		
 	});
@@ -66,8 +73,8 @@ BUI.use(['bui/layout/flow'],function(Flow) {
 				content : '附加内容'
 			});
 
-			expect(layout.getItems().length).toBe(count + 1);
-			expect(el.find('.x-layout-item-flow').length).toBe(count + 1);
+			expect(layout.getItems().length).to.be(count + 1);
+			expect(el.find('.x-layout-item-flow').length).to.be(count + 1);
 
 		});
 		it('修改',function(){
@@ -75,11 +82,11 @@ BUI.use(['bui/layout/flow'],function(Flow) {
 				
 				item = layout.getItem(child);
 			//child.set('layout',layout);
-			expect(item).not.toBe(undefined);
+			expect(item).not.to.be(undefined);
 			item.set('height',150);
 			item.syncItem();
 			
-			expect(item.get('el').css('height')).toBe('150px');
+			expect(item.get('el').css('height')).to.be('150px');
 
 		});
 		it('删除',function(){
@@ -88,10 +95,9 @@ BUI.use(['bui/layout/flow'],function(Flow) {
 
 			child.remove();
 
-			expect(layout.getItems().length).toBe(count - 1);
-			expect(el.find('.x-layout-item-flow').length).toBe(count - 1);
+			expect(layout.getItems().length).to.be(count - 1);
+			expect(el.find('.x-layout-item-flow').length).to.be(count - 1);
 		});
 
 	});
 
-});

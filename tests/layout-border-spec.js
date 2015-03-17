@@ -1,5 +1,16 @@
 /**/
-BUI.use(['bui/layout/border'],function(Border) {
+var Border = require('../src/border'),
+  expect = require('expect.js'),
+  sinon = require('sinon'),
+  $ = require('jquery');
+
+require("http://g.tbcdn.cn/fi/bui/css/layout-min.css");
+
+$('<div id="J_Layout"></div>').appendTo('body');
+
+$('<div id="J_Layout_a"></div>').appendTo('body');
+
+(function() {
 
 	var layout = new Border(),
 		control = new BUI.Component.Controller({
@@ -71,44 +82,44 @@ BUI.use(['bui/layout/border'],function(Border) {
 	describe('测试初始化',function(){
 		var children = el.children();
 		it('测试生成布局项',function(){
-			expect(el.find('.x-layout-item-border').length).toBe(control.get('children').length);
+			expect(el.find('.x-layout-item-border').length).to.be(control.get('children').length);
 		});
 
 		it('north位置',function(){
 			var north = getItemByRegion('north');
-			expect(north).not.toBe(null);
+			expect(north).not.to.be(null);
 			expect(north.get('el').parent().hasClass('x-border-top'));
 		});
 		it('south位置',function(){
 			var south = getItemByRegion('south');
-			expect(south).not.toBe(null);
+			expect(south).not.to.be(null);
 			expect(south.get('el').parent().hasClass('x-boder-bottom'));
 		});
 
 		it('east位置',function(){
 			var east = getItemByRegion('east');
-			expect(east).not.toBe(null);
+			expect(east).not.to.be(null);
 			expect(east.get('el').parent().hasClass('x-border-middle'));
 		});
 		it('west位置',function(){
 			var west = getItemByRegion('west');
-			expect(west).not.toBe(null);
+			expect(west).not.to.be(null);
 			expect(west.get('el').parent().hasClass('x-border-middle'));
 		});
 
 		it('测试初始化高度',function(){
 			var centerEl = layout.get('middleEl');
-			expect(centerEl.height() > 300).toBe(true);
+			expect(centerEl.height() > 300).to.be(true);
 		});
 
 		it('测试title',function(){
 			var north = getItemByRegion('north');
-			expect(!!north.get('title')).toBe(true);
-			expect(north.get('el').find('.x-border-title').length).toBe(1);
+			expect(!!north.get('title')).to.be(true);
+			expect(north.get('el').find('.x-border-title').length).to.be(1);
 
 			var west = getItemByRegion('west'); 
-			expect(!!west.get('title')).toBe(false);
-			expect(west.get('el').find('.x-border-title').length).toBe(0);
+			expect(!!west.get('title')).to.be(false);
+			expect(west.get('el').find('.x-border-title').length).to.be(0);
 
 		});
 		
@@ -128,33 +139,33 @@ BUI.use(['bui/layout/border'],function(Border) {
 	function testCenter(){
 		var center = getItemByRegion('center'),
 				control = center.get('control');
-			expect(getFitHeight(center)).toBe(control.get('el').outerHeight());
-			expect(center.get('el').width()).toBe(control.get('el').outerWidth());
+			expect(getFitHeight(center)).to.be(control.get('el').outerHeight());
+			expect(center.get('el').width()).to.be(control.get('el').outerWidth());
 	}
 	describe('自适应宽高',function(){
 		it('测试自适应高度',function(){
 			var south = getItemByRegion('south');
-			expect(getFitHeight(south)).toBe(south.get('control').get('el').outerHeight());
+			expect(getFitHeight(south)).to.be(south.get('control').get('el').outerHeight());
 		});
 
 		it('测试无自适应',function(){
 			var north = getItemByRegion('north'),
 				control = north.get('control');
-			expect(getFitHeight(north)).not.toBe(control.get('el').outerHeight());
-			expect(north.get('width')).not.toBe(control.get('el').outerWidth());
+			expect(getFitHeight(north)).not.to.be(control.get('el').outerHeight());
+			expect(north.get('width')).not.to.be(control.get('el').outerWidth());
 
 		});
 		it('测试自适应宽度',function(){
 			var west = getItemByRegion('west'),
 				control = west.get('control');
-			expect(getFitHeight(west)).not.toBe(control.get('el').outerHeight());
-			expect(west.get('width')).toBe(control.get('el').outerWidth());
+			expect(getFitHeight(west)).not.to.be(control.get('el').outerHeight());
+			expect(west.get('width')).to.be(control.get('el').outerWidth());
 		});
 		it('测试自适应宽高',function(){
 			var east = getItemByRegion('east'),
 				control = east.get('control');
-			expect(getFitHeight(east)).toBe(control.get('el').outerHeight());
-			expect(east.get('width')).toBe(control.get('el').outerWidth());
+			expect(getFitHeight(east)).to.be(control.get('el').outerHeight());
+			expect(east.get('width')).to.be(control.get('el').outerWidth());
 		});
 		it('测试中间区域',function(){
 			testCenter();
@@ -165,22 +176,22 @@ BUI.use(['bui/layout/border'],function(Border) {
 		it('添加title',function(){
 			var center = getItemByRegion('center');
 			
-			expect(!!center.get('title')).toBe(false);
-			expect(center.get('el').find('.x-border-title').length).toBe(0);
+			expect(!!center.get('title')).to.be(false);
+			expect(center.get('el').find('.x-border-title').length).to.be(0);
 			center.set('title','新的标题');
 			center.syncItem();
-			expect(!!center.get('title')).toBe(true);
-			expect(center.get('el').find('.x-border-title').length).toBe(1);
+			expect(!!center.get('title')).to.be(true);
+			expect(center.get('el').find('.x-border-title').length).to.be(1);
 			
 		});
 		it('更改title',function(){
 			var south = getItemByRegion('south');
-			expect(!!south.get('title')).toBe(true);
-			expect(south.get('el').find('.x-border-title').length).toBe(1);
+			expect(!!south.get('title')).to.be(true);
+			expect(south.get('el').find('.x-border-title').length).to.be(1);
 			south.set('title','');
 			south.syncItem();
-			expect(!!south.get('title')).toBe(false);
-			expect(south.get('el').find('.x-border-title').length).toBe(0);
+			expect(!!south.get('title')).to.be(false);
+			expect(south.get('el').find('.x-border-title').length).to.be(0);
 
 		});
 		it('更改高度',function(){
@@ -188,7 +199,7 @@ BUI.use(['bui/layout/border'],function(Border) {
 				preHeight = centerEl.height();
 
 			control.set('height',600);
-			expect(centerEl.height() - preHeight).toBe(100);
+			expect(centerEl.height() - preHeight).to.be(100);
 			testCenter();
 		});
 		
@@ -204,7 +215,7 @@ BUI.use(['bui/layout/border'],function(Border) {
 					height:50
 				}
 			});
-			expect(centerEl.height()).not.toBe(preHeight);
+			expect(centerEl.height()).not.to.be(preHeight);
 			testCenter();
 		});
 
@@ -215,21 +226,21 @@ BUI.use(['bui/layout/border'],function(Border) {
 				preHeight = centerEl.height();
 
 			delItem.remove();
-			expect(centerEl.height()).not.toBe(preHeight);
+			expect(centerEl.height()).not.to.be(preHeight);
 			testCenter();
 		});
 	});
-});
+})();
 
 
 
-BUI.use(['bui/layout/border'],function(Border) {
+(function() {
 
 	var layout = new Border(),
 		control = new BUI.Component.Controller({
 		width:600,
 		height:500,
-		render : '#J_Layout',
+		render : '#J_Layout_a',
 		elCls : 'ext-border-layout',
 		children : [{
 			layout : {
@@ -290,44 +301,42 @@ BUI.use(['bui/layout/border'],function(Border) {
 	describe('测试折叠,初始化',function(){
 		it('测试默认展开',function(){
 			var north = getItemByRegion('north');
-			expect(north.get('collapsed')).toBe(false);
-			expect(north.get('el').height()).toBe(north.get('height'));
+			expect(north.get('collapsed')).to.be(false);
+			expect(north.get('el').height()).to.be(north.get('height'));
 
 		});
 		it('测试默认收缩',function(){
 			var south = getItemByRegion('south');
-			expect(south.get('collapsed')).toBe(true);
-			expect(south.get('el').height()).not.toBe(south.get('height'));
+			expect(south.get('collapsed')).to.be(true);
+			expect(south.get('el').height()).not.to.be(south.get('height'));
 		});
 	});
 
 	describe('测试折叠,操作',function(){
 		it('折叠选项',function(){
 			var east = getItemByRegion('east');
-			expect(east.get('collapsed')).toBe(false);
-			//expect(east.get('el').width()).toBe(east.get('width'));
+			expect(east.get('collapsed')).to.be(false);
+			//expect(east.get('el').width()).to.be(east.get('width'));
 			layout.collapseItem(east);
 
-			waits(500);
-			runs(function(){
-				expect(east.get('collapsed')).toBe(true);
-				expect(east.get('el').width()).not.toBe(east.get('width'));
-			});
+			setTimeout(function(){
+				expect(east.get('collapsed')).to.be(true);
+				expect(east.get('el').width()).not.to.be(east.get('width'));
+			}, 500);
 		});
 
 		it('展开选项',function(){
 			var south = getItemByRegion('south');
-			expect(south.get('collapsed')).toBe(true);
-			expect(south.get('el').height()).not.toBe(south.get('height'));
+			expect(south.get('collapsed')).to.be(true);
+			expect(south.get('el').height()).not.to.be(south.get('height'));
 
 			layout.expandItem(south);
 
-			waits(500);
-			runs(function(){
-				expect(south.get('collapsed')).toBe(false);
-				expect(south.get('el').height()).toBe(south.get('height'));
-			});
+			setTimeout(function(){
+				expect(south.get('collapsed')).to.be(false);
+				expect(south.get('el').height()).to.be(south.get('height'));
+			}, 500);
 		});
 	});/**/
-});
+})();
 
